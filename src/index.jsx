@@ -10,7 +10,7 @@ import { createHistory as history } from 'history';
 import '../assets/stylesheets/application.scss';
 
 import carsReducer from './reducers/cars_reducer';
-import App from './components/app';
+import carList from './containers/car_list';
 
 const garageName = 'Jojo\'s Repair Shop';
 const cars = [
@@ -38,8 +38,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        <Route path="" component={App} />
-        <Redirect from="/" to="general" />
+        <Route path="/" component={carList} />
       </Switch>
     </Router>
   </Provider>,
