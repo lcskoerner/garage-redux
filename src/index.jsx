@@ -4,12 +4,13 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
 import '../assets/stylesheets/application.scss';
 
 import carsReducer from './reducers/cars_reducer';
+import App from './components/app';
 
 const garageName = 'Jojo\'s Repair Shop';
 const cars = [
@@ -21,8 +22,8 @@ const cars = [
 
 const initialState = {
   garage: garageName,
-  cars: cars
-}
+  cars
+};
 
 const reducers = combineReducers({
   garage: (state = null, action) => state,
@@ -37,7 +38,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Switch>
-        TODO
+        <Route path="" component={App} />
+        <Redirect from="/" to="general" />
       </Switch>
     </Router>
   </Provider>,

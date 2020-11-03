@@ -1,10 +1,9 @@
-export default function(state, action) {
-  if (state === undefined) {
-    return state;
-  }
-
+const carsReducer = (state = [], action) => {
   switch(action.type) {
     // TODO
   }
 
-}
+  return state;
+};
+
+export default carsReducer;
