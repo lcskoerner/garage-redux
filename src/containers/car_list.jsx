@@ -8,7 +8,7 @@ import Aside from '../components/aside';
 
 class CarsIndex extends Component {
   componentWillMount() {
-    //this.props.fetchCars(this.props.garage);
+    this.props.fetchCars(this.props.garage);
   }
 
   render () {

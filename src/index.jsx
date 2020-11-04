@@ -4,43 +4,44 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import logger from 'redux-logger';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
+import { reducer as formReducer } from 'redux-form';
 
+import CarList from './containers/car_list';
+//import CarsShow from './containers/cars_show';
+import CarNew from './containers/car_new';
 import '../assets/stylesheets/application.scss';
 
-import carsReducer from './reducers/cars_reducer';
-import carList from './containers/car_list';
+import carsReducer from './reducers/cars_reducer.js';
 
-const garageName = 'Jojo\'s Repair Shop';
-const cars = [
-  { id: 1, brand: 'Peugeot', model: '106', owner: 'John', plate: 'WOB-ED-42' },
-  { id: 2, brand: 'Renault', model: 'Scenic', owner: 'Paul', plate: 'AAA-12-BC' },
-  { id: 3, brand: 'Aston Martin', model: 'DB Mark III', owner: 'James', plate: '418-ED-94' },
-  { id: 4, brand: 'VW', model: 'Beetle', owner: 'George', plate: '1234-XD-75' }
-];
-
+// State and reducers
+const garageName = prompt("What is your garage?") || `garage${Math.floor(10 + (Math.random() * 90))}`;
 const initialState = {
   garage: garageName,
-  cars
+  cars: []
 };
 
 const reducers = combineReducers({
   garage: (state = null, action) => state,
-  cars: carsReducer
+  cars: carsReducer,
+  form: formReducer
 });
 
 const middlewares = applyMiddleware(reduxPromise, logger);
-const store = createStore(reducers, initialState, middlewares);
 
+// render an instance of the component in the DOM
 ReactDOM.render(
-  // render an instance of the component in the DOM
-  <Provider store={store}>
+  <Provider store={createStore(reducers, initialState, middlewares)}>
     <Router history={history}>
-      <Switch>
-        <Route path="/" component={carList} />
-      </Switch>
+      <div className="view-container">
+        <Switch>
+          <Route path="/" exact component={CarList} />
+          <Route path="/cars/new" exact component={CarNew} />
+          {/* <Route path="/cars/:id" component={CarsShow} /> */}
+        </Switch>
+      </div>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.querySelector('.container')
 );
