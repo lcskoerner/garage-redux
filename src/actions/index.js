@@ -3,22 +3,21 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 // TODO: add and export your own actions
-const FETCH_CARS = 'FETCH_CARS';
-const ADD_CAR = 'ADD_CAR';
-
 export const fetchCars = (garage) => {
   const url = `https://wagon-garage-api.herokuapp.com/${garage}/cars`;
   const promise = fetch(url)
     .then((response) => response.json());
 
   return {
-    type: FETCH_CARS,
+    type: 'FETCH_CARS',
     payload: promise
   };
 };
 
-export const addCar = (garage, car) => {
+export const addCar = (garage, car, callback) => {
   const url = `https://wagon-garage-api.herokuapp.com/${garage}/cars`;
+  console.log(garage);
+  console.log(car);
   const request = fetch(url, {
     method: 'POST',
     headers: {
@@ -30,7 +29,7 @@ export const addCar = (garage, car) => {
     .then(() => callback());
 
   return {
-    type: ADD_CAR,
+    type: 'ADD_CAR',
     payload: request
   };
 };
