@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createHistory as history } from 'history';
 
 import CarList from './containers/car_list';
-//import CarsShow from './containers/cars_show';
+import CarShow from './containers/car_show';
 import CarNew from './containers/car_new';
 
 import '../assets/stylesheets/application.scss';
@@ -39,7 +39,7 @@ ReactDOM.render(
         <Switch>
           <Route path="/" exact component={CarList} />
           <Route path="/cars/new" exact component={CarNew} />
-          {/* <Route path="/cars/:id" component={CarsShow} /> */}
+          <Route path="/cars/:id" component={CarShow} />
         </Switch>
       </div>
     </Router>
